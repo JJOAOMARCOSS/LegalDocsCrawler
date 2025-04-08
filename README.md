@@ -35,7 +35,29 @@ source venv/bin/activate  # No Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3️⃣ Execute o scraper:
+3️⃣ Instale o Poppler (dependência de sistema)
+
+O Poppler é utilizado para converter arquivos PDF em TXT e não é gerenciado pelo pip. Siga as instruções abaixo conforme seu sistema operacional:
+
+**Linux (Debian/Ubuntu):**
+
+```bash
+sudo apt-get install poppler-utils
+```
+
+**macOS (usando Homebrew):**
+
+```bash
+brew install poppler
+```
+
+**Windows:**
+
+Faça o download do Poppler for Windows.
+
+Extraia o conteúdo em uma pasta e adicione o diretório bin do Poppler à variável de ambiente PATH.
+
+4️⃣ Execute o scraper:
 
 ```bash
 python main.py

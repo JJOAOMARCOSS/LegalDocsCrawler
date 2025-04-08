@@ -1,5 +1,5 @@
 import os
-import PyPDF2
+import subprocess
 
 OUTPUT_FOLDER = "cases"
 TXT_OUTPUT_FOLDER = "text_cases"
@@ -7,14 +7,12 @@ os.makedirs(TXT_OUTPUT_FOLDER, exist_ok=True)
 
 def convert_pdf_to_txt(pdf_path, txt_path):
     try:
-        with open(pdf_path, "rb") as pdf_file:
-            reader = PyPDF2.PdfReader(pdf_file)
-            text = ""
-            for page in reader.pages:
-                text += page.extract_text() + "\n"
+        # Usa o poppler para extrair texto do PDF
+        result = subprocess.run(['pdftotext', pdf_path, txt_path], capture_output=True, text=True)
         
-        with open(txt_path, "w", encoding="utf-8") as txt_file:
-            txt_file.write(text)
+        if result.returncode != 0:
+            print(f"❌ Erro ao converter {pdf_path}: {result.stderr}")
+            return
         
         print(f"✓ PDF convertido: {pdf_path} -> {txt_path}")
     except Exception as e:
